@@ -1,5 +1,3 @@
-FOLD_NR = 0
-
 import torch
 import PIL
 from PIL import Image
@@ -20,7 +18,7 @@ def pil_loader(path):
 
 class ImageLoader(torch.utils.data.Dataset):
 
-    def __init__(self, root, transform=None, target_transform=None, train=False, loader=pil_loader):
+    def __init__(self, root, fold_nr transform=None, target_transform=None, train=False, loader=pil_loader):
     
         path_csv = os.path.join(root, 'label.csv')
         path_images = root + '/train_images/'
@@ -29,9 +27,9 @@ class ImageLoader(torch.utils.data.Dataset):
         df['path'] = path_images + df['image_id']
         
         if train:
-            self.df = df[df['kfold']!=FOLD_NR]
+            self.df = df[df['kfold']!=fold_nr]
         else:
-            self.df = df[df['kfold']==FOLD_NR]
+            self.df = df[df['kfold']==fold_nr]
         
         self.df = self.df.reset_index(drop=True)
 
@@ -73,8 +71,8 @@ def get_dataset(conf):
 
     transform_train,transform_test = get_cub_transform(conf)
 
-    ds_train = ImageLoader(datadir, train=True, transform=transform_train)
-    ds_test  = ImageLoader(datadir, train=False, transform=transform_test)
+    ds_train = ImageLoader(datadir, conf['fold_nr'] train=True, transform=transform_train)
+    ds_test  = ImageLoader(datadir, conf['fold_nr'], train=False, transform=transform_test)
 
 
     return ds_train,ds_test
