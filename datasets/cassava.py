@@ -20,7 +20,7 @@ class ImageLoader(torch.utils.data.Dataset):
 
     def __init__(self, root, fold_nr, transform=None, target_transform=None, train=False, loader=pil_loader):
     
-        path_csv = os.path.join(root, 'label.csv')
+        path_csv = os.path.join(root, 'train.csv')
         path_images = root + '/train_images/'
     
         df = pd.read_csv(path_csv)
