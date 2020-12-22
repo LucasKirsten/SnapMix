@@ -25,7 +25,7 @@ class ImageLoader(torch.utils.data.Dataset):
         path_csv = os.path.join(root, 'label.csv')
         path_images = root + '/train_images/'
     
-        df = pd.read_csv()
+        df = pd.read_csv(path_csv)
         df['path'] = path_images + df['image_id']
         
         if train:
