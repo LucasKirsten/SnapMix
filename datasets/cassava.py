@@ -71,7 +71,7 @@ def get_dataset(conf):
 
     transform_train,transform_test = get_cub_transform(conf)
 
-    ds_train = ImageLoader(datadir, conf['fold_nr'] train=True, transform=transform_train)
+    ds_train = ImageLoader(datadir, conf['fold_nr'], train=True, transform=transform_train)
     ds_test  = ImageLoader(datadir, conf['fold_nr'], train=False, transform=transform_test)
 
 
